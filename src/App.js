@@ -3,9 +3,8 @@ import Header from './header';
 
 function App() {
   return (
-    <div className="App">
+    <div className="page">
       <Header />
-      <p>Text</p>
     </div>
   );
 }
