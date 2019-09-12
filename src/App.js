@@ -1,24 +1,23 @@
 import React, { Component } from "react";
 import Header from "./header";
+import UserHint from "./user-hint"
 
 class App extends Component {
-  
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: ""
+      searchTerm: "",
+      hintText: ""
     };
   }
 
   handleChange = event => {
-    const inputValue = event.target.value; 
+    const inputValue = event.target.value;
     this.setState((prevState, props) => ({
       ...prevState,
-      searchTerm: inputValue
+      searchTerm: inputValue,
+      hintText: inputValue.length > 2 ? `Hit enter to search for ${inputValue}` : ""
     }));
-    if (inputValue.length > 2) {
-      // Do something
-    }
   };
 
   handleEnterKeyPress = event => {
@@ -29,7 +28,7 @@ class App extends Component {
   };
 
   render() {
-    const {searchTerm} = this.state
+    const { searchTerm } = this.state;
     return (
       <div className="page">
         <Header />
@@ -43,6 +42,8 @@ class App extends Component {
             value={searchTerm}
           />
         </div>
+
+        <UserHint {...this.state} />
       </div>
     );
   }
