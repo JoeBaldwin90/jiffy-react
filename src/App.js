@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Header from "./header";
+import Gif from "./Gif";
 import UserHint from "./user-hint";
 
 const randomChoice = gifArray => {
@@ -25,7 +26,7 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         const gifArray = data.data.map(gif => {
-          return gif.images.original.mp4;
+          return gif.images;
         });
 
         const randomGif = randomChoice(gifArray);
@@ -66,7 +67,7 @@ class App extends Component {
 
         <div className="search grid">
           {gifs.map(gif => (
-            <video className="grid-item video" autoPlay={true} loop={true} src={gif} />
+            <Gif {...gif} />
           ))}
           <input
             className="input grid-item"
