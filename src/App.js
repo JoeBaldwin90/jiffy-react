@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import Header from "./header";
 import UserHint from "./user-hint";
 
+const randomChoice = gifArray => {
+  const randomIndex = Math.floor(Math.random() * gifArray.length);
+  return gifArray[randomIndex];
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -15,16 +20,19 @@ class App extends Component {
 
   searchGiphy = inputValue => {
     fetch(
-      `https://api.giphy.com/v1/gifs/search?api_key=Is7P13H7y3yqxijMkU17rfd24X4abCPC&q=${inputValue}&limit=20&offset=0&rating=PG&lang=en`
+      `https://api.giphy.com/v1/gifs/search?api_key=Is7P13H7y3yqxijMkU17rfd24X4abCPC&q=${inputValue}&limit=50&offset=0&rating=PG&lang=en`
     )
       .then(response => response.json())
       .then(data => {
+        const gifArray = data.data.map(gif => {
+          return gif.images.original.mp4;
+        });
+
+        const randomGif = randomChoice(gifArray);
+
         this.setState((prevState, props) => ({
           ...prevState,
-          loading: true,
-          gifs: data.data.map(gif => {
-            return gif.images.original.mp4;
-          })
+          gifs: [...prevState.gifs, randomGif]
         }));
       })
       .catch(error => {
@@ -51,12 +59,15 @@ class App extends Component {
   };
 
   render() {
-    const { searchTerm } = this.state;
+    const { searchTerm, gifs } = this.state;
     return (
       <div className="page">
         <Header />
 
         <div className="search grid">
+          {gifs.map(gif => (
+            <video className="grid-item video" autoPlay={true} loop={true} src={gif} />
+          ))}
           <input
             className="input grid-item"
             placeholder="type something"
