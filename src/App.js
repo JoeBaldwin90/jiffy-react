@@ -7,7 +7,9 @@ class App extends Component {
     super(props);
     this.state = {
       searchTerm: "",
-      hintText: ""
+      hintText: "",
+      loading: false,
+      gifs: []
     };
   }
 
@@ -17,11 +19,13 @@ class App extends Component {
     )
       .then(response => response.json())
       .then(data => {
-        const gifs = [];
-        data.data.map(item => {
-          gifs.push(item.images.original.mp4);
-        });
-        console.log(gifs);
+        this.setState((prevState, props) => ({
+          ...prevState,
+          loading: true,
+          gifs: data.data.map(gif => {
+            return gif.images.original.mp4;
+          })
+        }));
       })
       .catch(error => {
         alert("Search failed. Try entering a different search term");
