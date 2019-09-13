@@ -14,7 +14,6 @@ class App extends Component {
     this.state = {
       searchTerm: "",
       hintText: "",
-      loading: false,
       gifs: []
     };
   }
