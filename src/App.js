@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "./Header.js";
+import Header from "./header.js";
 import Gif from "./Gif.js";
 import UserHint from "./user-hint.js"
 const randomChoice = gifArray => {
