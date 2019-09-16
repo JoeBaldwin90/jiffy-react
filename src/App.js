@@ -23,13 +23,18 @@ class App extends Component {
     
     this.setState({
       loading: true
-    })
-    
+    });
+
     fetch(
       `https://api.giphy.com/v1/gifs/search?api_key=Is7P13H7y3yqxijMkU17rfd24X4abCPC&q=${inputValue}&limit=50&offset=0&rating=PG&lang=en`
     )
       .then(response => response.json())
       .then(data => {
+
+        if (!data.data.length) {
+          throw Error(`No gifs found for "${this.state.searchTerm}". Try another search term.`)
+        }
+
         const gifArray = data.data.map(gif => {
           return gif.images;
         });
@@ -43,7 +48,11 @@ class App extends Component {
         }));
       })
       .catch(error => {
-        alert("Search failed. Try entering a different search term");
+        this.setState((prevState, props) => ({
+          ...prevState,
+          hintText: `${error.message}`,
+          loading: false
+        }));
       });
   };
 
