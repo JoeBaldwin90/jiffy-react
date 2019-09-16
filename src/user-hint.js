@@ -1,8 +1,12 @@
 import React from "react";
 
-const UserHint = ({ hintText }) => (
+const UserHint = ({ loading, hintText }) => (
   <div className="user-hint">
-     {hintText}
+    {loading ? (
+      <img src={require("./images/loader.svg")} className="block mx-auto" />
+    ) : (
+      hintText
+    )}
   </div>
 );
 
