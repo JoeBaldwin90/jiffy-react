@@ -20,6 +20,8 @@ class App extends Component {
   }
 
   searchGiphy = inputValue => {
+
+    let {searchTerm} = this.state
     
     this.setState({
       loading: true
@@ -32,7 +34,7 @@ class App extends Component {
       .then(data => {
 
         if (!data.data.length) {
-          throw Error(`No gifs found for "${this.state.searchTerm}". Try another search term.`)
+          throw Error(`No gifs found for "${searchTerm}". Try another search term.`)
         }
 
         const gifArray = data.data.map(gif => {
@@ -44,7 +46,8 @@ class App extends Component {
         this.setState((prevState, props) => ({
           ...prevState,
           gifs: [...prevState.gifs, randomGif],
-          loading: false
+          loading: false,
+          hintText: `Hit enter to see more ${searchTerm}`
         }));
       })
       .catch(error => {
