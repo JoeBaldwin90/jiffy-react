@@ -14,11 +14,17 @@ class App extends Component {
     this.state = {
       searchTerm: "",
       hintText: "",
+      loading: false,
       gifs: []
     };
   }
 
   searchGiphy = inputValue => {
+    
+    this.setState({
+      loading: true
+    })
+    
     fetch(
       `https://api.giphy.com/v1/gifs/search?api_key=Is7P13H7y3yqxijMkU17rfd24X4abCPC&q=${inputValue}&limit=50&offset=0&rating=PG&lang=en`
     )
@@ -32,7 +38,8 @@ class App extends Component {
 
         this.setState((prevState, props) => ({
           ...prevState,
-          gifs: [...prevState.gifs, randomGif]
+          gifs: [...prevState.gifs, randomGif],
+          loading: false
         }));
       })
       .catch(error => {

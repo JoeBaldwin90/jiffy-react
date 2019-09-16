@@ -16,7 +16,7 @@ class Gif extends Component {
         autoPlay={true}
         loop={true}
         src={this.props.original.mp4}
-        onLoadedData={() => this.setState({loaded: true})}
+        onLoadedData={() => this.setState({ loaded: true })}
       />
     );
   }
