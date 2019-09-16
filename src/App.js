@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   searchGiphy = inputValue => {
-    let { searchTerm } = this.state;
+   let { searchTerm } = this.state;
 
     this.setState({
       loading: true
@@ -105,7 +105,7 @@ class App extends Component {
             onKeyPress={this.handleEnterKeyPress}
             value={searchTerm}
             ref={input => {
-              this.searchInput = input
+              this.searchInput = input;
             }}
           />
         </div>
