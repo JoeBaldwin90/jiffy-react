@@ -20,9 +20,8 @@ class App extends Component {
   }
 
   searchGiphy = inputValue => {
+    let { searchTerm } = this.state;
 
-    let {searchTerm} = this.state
-    
     this.setState({
       loading: true
     });
@@ -32,9 +31,10 @@ class App extends Component {
     )
       .then(response => response.json())
       .then(data => {
-
         if (!data.data.length) {
-          throw Error(`No gifs found for "${searchTerm}". Try another search term.`)
+          throw Error(
+            `No gifs found for "${searchTerm}". Try another search term.`
+          );
         }
 
         const gifArray = data.data.map(gif => {
@@ -84,7 +84,8 @@ class App extends Component {
       hintText: "",
       gifs: []
     }));
-  }
+    this.searchInput.focus();
+  };
 
   render() {
     const { searchTerm, gifs } = this.state;
@@ -103,6 +104,9 @@ class App extends Component {
             onChange={this.handleChange}
             onKeyPress={this.handleEnterKeyPress}
             value={searchTerm}
+            ref={input => {
+              this.searchInput = input
+            }}
           />
         </div>
 
