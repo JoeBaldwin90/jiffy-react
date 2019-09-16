@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import Header from "./Header";
-import Gif from "./Gif";
-import UserHint from "./user-hint";
-
+import Header from "./Header.js";
+import Gif from "./Gif.js";
+import UserHint from "./user-hint.js"
 const randomChoice = gifArray => {
   const randomIndex = Math.floor(Math.random() * gifArray.length);
   return gifArray[randomIndex];
