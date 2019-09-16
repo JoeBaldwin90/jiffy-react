@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "./header";
+import Header from "./Header";
 import Gif from "./Gif";
 import UserHint from "./user-hint";
 
@@ -77,11 +77,21 @@ class App extends Component {
     }
   };
 
+  clearSearch = () => {
+    this.setState((prevState, props) => ({
+      ...prevState,
+      searchTerm: "",
+      hintText: "",
+      gifs: []
+    }));
+  }
+
   render() {
     const { searchTerm, gifs } = this.state;
+    const hasResults = gifs.length;
     return (
       <div className="page">
-        <Header />
+        <Header clearSearch={this.clearSearch} hasResults={hasResults} />
 
         <div className="search grid">
           {gifs.map(gif => (
